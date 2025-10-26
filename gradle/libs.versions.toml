@@ -1,0 +1,14 @@
+[versions]
+jhlabs = "2.0.235-1"
+jspecify = "1.0.0"
+junit = "5.10.0"
+
+[libraries]
+jhlabs-core = { group = "com.jhlabs", name = "filters", version.ref = "jhlabs" }
+jspecify-core = { group = "org.jspecify", name = "jspecify", version.ref = "jspecify" }
+junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
+junit-platformLauncher = { group = "org.junit.platform", name = "junit-platform-launcher" }
+
+[plugins]
+
