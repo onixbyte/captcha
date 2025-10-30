@@ -192,7 +192,7 @@ public class DefaultCaptchaProducer implements Producer {
 
         private DefaultCaptchaProducerBuilder() {
             this.wordRenderer = DefaultWordRenderer.builder().build();
-            this.gimpyEngine = (GimpyEngine) WaterRipple.builder().build();
+            this.gimpyEngine = WaterRipple.builder().build();
             this.backgroundProducer = DefaultBackgroundProducer.builder().build();
             this.width = 200;
             this.height = 50;
