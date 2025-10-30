@@ -52,7 +52,7 @@ import com.onixbyte.captcha.noise.NoiseProducer;
 import com.onixbyte.captcha.noise.impl.DefaultNoiseProducer;
 import com.onixbyte.captcha.text.TextProducer;
 import com.onixbyte.captcha.text.WordRenderer;
-import com.onixbyte.captcha.text.impl.DefaultTextCreator;
+import com.onixbyte.captcha.text.impl.DefaultTextProducer;
 import com.onixbyte.captcha.text.impl.DefaultWordRenderer;
 
 import javax.imageio.ImageIO;
