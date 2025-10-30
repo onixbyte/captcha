@@ -106,7 +106,7 @@ http-client.private.env.json
 gradle-app.setting
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+!/gradle/wrapper/gradle-wrapper.jar
 
 # Avoid ignore Gradle wrappper properties
 !gradle-wrapper.properties
@@ -134,13 +134,14 @@ gradle-app.setting
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
 *.zip
 *.tar.gz
 *.rar
+*.jar
+!/gradle/wrapper/gradle-wrapper.jar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*

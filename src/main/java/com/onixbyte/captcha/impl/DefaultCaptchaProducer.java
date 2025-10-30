@@ -29,7 +29,7 @@ import com.onixbyte.captcha.Producer;
 import com.onixbyte.captcha.gimpy.impl.WaterRipple;
 import com.onixbyte.captcha.text.TextProducer;
 import com.onixbyte.captcha.text.WordRenderer;
-import com.onixbyte.captcha.text.impl.DefaultTextCreator;
+import com.onixbyte.captcha.text.impl.DefaultTextProducer;
 import com.onixbyte.captcha.text.impl.DefaultWordRenderer;
 
 import java.awt.BasicStroke;
@@ -192,14 +192,14 @@ public class DefaultCaptchaProducer implements Producer {
 
         private DefaultCaptchaProducerBuilder() {
             this.wordRenderer = DefaultWordRenderer.builder().build();
-            this.gimpyEngine = (GimpyEngine) WaterRipple.builder().build();
+            this.gimpyEngine = WaterRipple.builder().build();
             this.backgroundProducer = DefaultBackgroundProducer.builder().build();
             this.width = 200;
             this.height = 50;
             this.borderDrawn = true;
             this.borderColour = Color.BLACK;
             this.borderThickness = 1;
-            this.textProducer = DefaultTextCreator.builder().build();
+            this.textProducer = DefaultTextProducer.builder().build();
         }
 
         /**

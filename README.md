@@ -52,7 +52,7 @@ import com.onixbyte.captcha.noise.NoiseProducer;
 import com.onixbyte.captcha.noise.impl.DefaultNoiseProducer;
 import com.onixbyte.captcha.text.TextProducer;
 import com.onixbyte.captcha.text.WordRenderer;
-import com.onixbyte.captcha.text.impl.DefaultTextCreator;
+import com.onixbyte.captcha.text.impl.DefaultTextProducer;
 import com.onixbyte.captcha.text.impl.DefaultWordRenderer;
 
 import javax.imageio.ImageIO;
@@ -60,36 +60,39 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 
 public class CaptchaExample {
 
     public static void main(String[] args) throws IOException {
         // Define producers and engines
-        TextProducer textProducer = new DefaultTextCreator();
-        WordRenderer wordRenderer = new DefaultWordRenderer(
-                Color.BLACK,
-                Collections.singletonList(new Font("Arial", Font.BOLD, 40))
-        );
-        GimpyEngine gimpyEngine = new WaterRipple(new DefaultNoiseProducer());
-        BackgroundProducer backgroundProducer = new DefaultBackgroundProducer(
-                Color.WHITE,
-                Color.LIGHT_GRAY
-        );
-        NoiseProducer noiseProducer = new DefaultNoiseProducer();
+        TextProducer textProducer = DefaultTextProducer.builder()
+                // .length(6) // default length is 6
+                // .chars("ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) // default available characters are 'a' to 'z', 'A' to 'Z' and '0' - '9'
+                .build();
+        WordRenderer wordRenderer = DefaultWordRenderer.builder()
+                // .fontColour(Color.BLACK) // default to Color.BLACK
+                // .fonts(new Font("Arial", Font.BOLD, 40)) // default to (Arial Bold 40) and (Courier, Bold, 40)
+                // .fontSize(40) // default to 40
+                // .charSpace(2) // default to 2
+                .build();
+        NoiseProducer noiseProducer = DefaultNoiseProducer.builder()
+                // .noiseColour(Color.BLACK) // default to Color.BLACK
+                .build();
+        GimpyEngine gimpyEngine = WaterRipple.builder()
+                // .noiseProducer(DefaultNoiseProducer.builder().build()) // default to DefaultNoiseProducer with default configurations
+                .build();
+        BackgroundProducer backgroundProducer = DefaultBackgroundProducer.builder()
+                // .colourFrom(Color.WHITE) // default to Color.LIGHT_GRAY
+                // .colourTo(Color.LIGHT_GRAY) // default to Color.WHITE
+                .build();
 
         // Create a CAPTCHA producer
-        Producer captcha = new DefaultCaptchaProducer(
-                wordRenderer,
-                gimpyEngine,
-                backgroundProducer,
-                200,
-                50,
-                true,
-                Color.BLACK,
-                1,
-                textProducer
-        );
+        Producer captcha = DefaultCaptchaProducer.builder()
+                .textProducer(textProducer) // default to DefaultTextProducer with default configurations
+                .wordRenderer(wordRenderer) // default to DefaultWordRenderer with default configurations
+                .gimpyEngine(gimpyEngine) // default to WaterRipple with default configurations
+                .backgroundProducer(backgroundProducer) // default to DefaultBackgroundProducer with default configurations
+                .build();
 
         // Generate text and create the image
         String captchaText = captcha.createText();
