@@ -31,13 +31,13 @@ import java.util.Random;
 /**
  * The default implementation of {@link TextProducer}.
  */
-public class DefaultTextCreator implements TextProducer {
+public class DefaultTextProducer implements TextProducer {
 
     private final int length;
 
     private final char[] chars;
 
-    private DefaultTextCreator(int length, char[] chars) {
+    private DefaultTextProducer(int length, char[] chars) {
         this.length = length;
         this.chars = chars;
     }
@@ -58,22 +58,22 @@ public class DefaultTextCreator implements TextProducer {
     }
 
     /**
-     * Creates a new {@link DefaultTextCreatorBuilder}.
+     * Creates a new {@link DefaultTextProducerBuilder}.
      *
-     * @return a new {@link DefaultTextCreatorBuilder}
+     * @return a new {@link DefaultTextProducerBuilder}
      */
-    public static DefaultTextCreatorBuilder builder() {
-        return new DefaultTextCreatorBuilder();
+    public static DefaultTextProducerBuilder builder() {
+        return new DefaultTextProducerBuilder();
     }
 
     /**
-     * A builder for creating {@link DefaultTextCreator} instances.
+     * A builder for creating {@link DefaultTextProducer} instances.
      */
-    public static class DefaultTextCreatorBuilder {
+    public static class DefaultTextProducerBuilder {
         private int length;
         private char[] chars;
 
-        private DefaultTextCreatorBuilder() {
+        private DefaultTextProducerBuilder() {
             this.length = 6;
             this.chars = new char[]{
                     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -89,7 +89,7 @@ public class DefaultTextCreator implements TextProducer {
          * @param length the length
          * @return this builder
          */
-        public DefaultTextCreatorBuilder length(int length) {
+        public DefaultTextProducerBuilder length(int length) {
             if (length <= 0) {
                 throw new IllegalArgumentException("Length should be greater than 0.");
             }
@@ -103,7 +103,7 @@ public class DefaultTextCreator implements TextProducer {
          * @param chars the characters
          * @return this builder
          */
-        public DefaultTextCreatorBuilder chars(char[] chars) {
+        public DefaultTextProducerBuilder chars(char[] chars) {
             if (Objects.isNull(chars) || chars.length == 0) {
                 throw new IllegalArgumentException("Chars cannot be empty.");
             }
@@ -112,12 +112,12 @@ public class DefaultTextCreator implements TextProducer {
         }
 
         /**
-         * Builds a new {@link DefaultTextCreator} with the configured properties.
+         * Builds a new {@link DefaultTextProducer} with the configured properties.
          *
-         * @return a new {@link DefaultTextCreator}
+         * @return a new {@link DefaultTextProducer}
          */
-        public DefaultTextCreator build() {
-            return new DefaultTextCreator(length, chars);
+        public DefaultTextProducer build() {
+            return new DefaultTextProducer(length, chars);
         }
     }
 }

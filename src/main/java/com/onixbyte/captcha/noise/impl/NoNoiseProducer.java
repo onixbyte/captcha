@@ -23,7 +23,6 @@
 package com.onixbyte.captcha.noise.impl;
 
 import com.onixbyte.captcha.noise.NoiseProducer;
-import com.onixbyte.captcha.text.impl.DefaultTextCreator;
 
 import java.awt.image.BufferedImage;
 
