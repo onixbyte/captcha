@@ -22,8 +22,8 @@
 
 package com.onixbyte.captcha.text.impl;
 
-import com.onixbyte.captcha.text.enums.FontStyle;
 import com.onixbyte.captcha.text.WordRenderer;
+import com.onixbyte.captcha.text.enums.FontStyle;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
@@ -179,6 +179,15 @@ public class DefaultWordRenderer implements WordRenderer {
             return this;
         }
 
+        /**
+         * Sets the font style to apply to all configured font families when building the renderer.
+         * The style is mapped to the corresponding {@link java.awt.Font} style constant(s).
+         *
+         * @param fontStyle the font style to use
+         * @return this builder
+         * @see FontStyle
+         * @see java.awt.Font
+         */
         public DefaultWordRendererBuilder fontStyle(FontStyle fontStyle) {
             this.fontStyle = fontStyle;
             return this;
