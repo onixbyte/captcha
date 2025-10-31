@@ -52,6 +52,7 @@ import com.onixbyte.captcha.noise.NoiseProducer;
 import com.onixbyte.captcha.noise.impl.DefaultNoiseProducer;
 import com.onixbyte.captcha.text.TextProducer;
 import com.onixbyte.captcha.text.WordRenderer;
+import com.onixbyte.captcha.text.enums.FontStyle;
 import com.onixbyte.captcha.text.impl.DefaultTextProducer;
 import com.onixbyte.captcha.text.impl.DefaultWordRenderer;
 
@@ -71,9 +72,10 @@ public class CaptchaExample {
                 .build();
         WordRenderer wordRenderer = DefaultWordRenderer.builder()
                 // .fontColour(Color.BLACK) // default to Color.BLACK
-                // .fonts(new Font("Arial", Font.BOLD, 40)) // default to (Arial Bold 40) and (Courier, Bold, 40)
+                // .fonts("Arial") // default to Arial and Courier
                 // .fontSize(40) // default to 40
                 // .charSpace(2) // default to 2
+                // .fontStyle(FontStyle.ITALIC) // Default to FontStyle.BOLD
                 .build();
         NoiseProducer noiseProducer = DefaultNoiseProducer.builder()
                 // .noiseColour(Color.BLACK) // default to Color.BLACK

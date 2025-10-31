@@ -23,6 +23,7 @@
 package com.onixbyte.captcha.text.impl;
 
 import com.onixbyte.captcha.text.WordRenderer;
+import com.onixbyte.captcha.text.enums.FontStyle;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
@@ -109,7 +110,7 @@ public class DefaultWordRenderer implements WordRenderer {
                     wordChars[i]
             };
             g2D.drawChars(charToDraw, 0, charToDraw.length, startPosX, startPosY);
-            startPosX = startPosX + (int) charWidths[i] + charSpace;
+            startPosX = startPosX + charWidths[i] + charSpace;
         }
 
         return image;
@@ -129,15 +130,17 @@ public class DefaultWordRenderer implements WordRenderer {
      */
     public static class DefaultWordRendererBuilder {
         private int fontSize;
-        private Font[] fonts;
+        private String[] fonts;
         private Color fontColour;
         private int charSpace;
+        private FontStyle fontStyle;
 
         private DefaultWordRendererBuilder() {
             this.fontSize = 40;
-            this.fonts = new Font[]{new Font("Arial", Font.BOLD, this.fontSize), new Font("Courier", Font.BOLD, this.fontSize)};
+            this.fonts = new String[]{"Arial", "Courier"};
             this.fontColour = Color.BLACK;
             this.charSpace = 2;
+            this.fontStyle = FontStyle.BOLD;
         }
 
         /**
@@ -161,18 +164,32 @@ public class DefaultWordRenderer implements WordRenderer {
          * @param fonts the fonts
          * @return this builder
          */
-        public DefaultWordRendererBuilder fonts(Font... fonts) {
+        public DefaultWordRendererBuilder fonts(String... fonts) {
             if (Objects.isNull(fonts) || fonts.length == 0) {
                 throw new IllegalArgumentException("Fonts should not be empty.");
             }
 
-            for (Font font : fonts) {
-                if (Objects.isNull(font)) {
+            for (String font : fonts) {
+                if (Objects.isNull(font) || !font.trim().isEmpty()) {
                     throw new IllegalArgumentException("Font should not be null.");
                 }
             }
 
             this.fonts = fonts;
+            return this;
+        }
+
+        /**
+         * Sets the font style to apply to all configured font families when building the renderer.
+         * The style is mapped to the corresponding {@link java.awt.Font} style constant(s).
+         *
+         * @param fontStyle the font style to use
+         * @return this builder
+         * @see FontStyle
+         * @see java.awt.Font
+         */
+        public DefaultWordRendererBuilder fontStyle(FontStyle fontStyle) {
+            this.fontStyle = fontStyle;
             return this;
         }
 
@@ -212,7 +229,28 @@ public class DefaultWordRenderer implements WordRenderer {
          * @return a new {@link DefaultWordRenderer}
          */
         public DefaultWordRenderer build() {
-            return new DefaultWordRenderer(fontSize, fonts, fontColour, charSpace);
+            Font[] _fonts = new Font[fonts.length];
+
+            int _fontStyle = Font.BOLD;
+            switch (fontStyle) {
+                case PLAIN:
+                    _fontStyle = Font.PLAIN;
+                    break;
+                case ITALIC:
+                    _fontStyle = Font.ITALIC;
+                    break;
+                case BOLD_ITALIC:
+                    _fontStyle = Font.BOLD | Font.ITALIC;
+                    break;
+                default:
+                    // nothing happens since font style default to Font.BOLD
+            }
+
+            for (int index = 0; index < fonts.length; ++index) {
+                _fonts[index] = new Font(fonts[index], _fontStyle, fontSize);
+            }
+
+            return new DefaultWordRenderer(fontSize, _fonts, fontColour, charSpace);
         }
     }
 }
